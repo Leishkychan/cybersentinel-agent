@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  sentinel:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cybersentinel-agent
+    network_mode: host
+    volumes:
+      - ./config:/app/config
+      - ./reports:/app/reports
+      - ./data:/app/data
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - SHODAN_API_KEY=${SHODAN_API_KEY}
+      - CENSYS_API_KEY=${CENSYS_API_KEY}
+      - VIRUSTOTAL_API_KEY=${VIRUSTOTAL_API_KEY}
+      - PYTHONUNBUFFERED=1
+    working_dir: /app
+    restart: unless-stopped

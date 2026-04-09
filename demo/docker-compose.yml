@@ -1,0 +1,37 @@
+# Demo targets — safe, legal, intentionally vulnerable applications.
+# These run locally in Docker. CyberSentinel analyzes them but never
+# modifies them or sends outbound traffic.
+#
+# Usage:
+#   docker compose up -d
+#   # Then point CyberSentinel at the running services
+#   docker compose down
+
+version: "3.8"
+
+services:
+  # DVWA — Damn Vulnerable Web Application
+  # Classic PHP/MySQL vulnerable app
+  dvwa:
+    image: vulnerables/web-dvwa
+    ports:
+      - "8080:80"
+    environment:
+      - MYSQL_DATABASE=dvwa
+    restart: unless-stopped
+
+  # OWASP Juice Shop — Modern vulnerable Node.js app
+  # Covers OWASP Top 10 and more
+  juice-shop:
+    image: bkimminich/juice-shop
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  # OWASP WebGoat — Java-based vulnerable app for learning
+  webgoat:
+    image: webgoat/webgoat
+    ports:
+      - "8081:8080"
+      - "9090:9090"
+    restart: unless-stopped

@@ -1,0 +1,49 @@
+# CyberSentinel Configuration
+# Copy this file to sentinel.yaml and fill in your API keys and preferences
+
+api_keys:
+  anthropic: ""
+  openai: ""
+  google: ""
+  shodan: ""
+  censys: ""
+  virustotal: ""
+
+scan_defaults:
+  depth_limit: 5
+  rate_limit: 50
+  timeout: 300
+
+models:
+  - provider: anthropic
+    name: claude-3-5-sonnet-20241022
+    enabled: true
+  - provider: openai
+    name: gpt-4-turbo
+    enabled: true
+  - provider: google
+    name: gemini-2.0-flash
+    enabled: false
+  - provider: ollama
+    name: llama2
+    enabled: false
+
+nuclei:
+  blocked_tags:
+    - exploit
+    - dos
+    - brute-force
+    - fuzzing
+
+reporting:
+  formats:
+    - html
+    - pdf
+    - markdown
+  compliance_frameworks:
+    - nist
+    - soc2
+    - pci-dss
+
+storage:
+  database_path: ./data/sentinel.db
